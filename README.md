@@ -1,3 +1,26 @@
+<!-- ffxiv-tc-port 繁體中文說明開始 -->
+# Machina(台服 fork)
+
+從 Windows 網路層讀取資料並重組成遊戲訊息的函式庫，`Machina.FFXIV` 負責解出 FFXIV 的封包內容。IINACT 用它取得戰鬥數據。上游是台服社群的 [PlusoneChiang/machina](https://github.com/PlusoneChiang/machina)（`tc/net9` 分支，再往上是 [marzent/machina](https://github.com/marzent/machina)）。
+
+## 台服 fork 的目的
+
+- 維護台服的封包 opcode 表，讓 IINACT 在台服改版後還能解出技能、狀態與 HP 等資料。台服每次改版 opcode 都會整批重新編號，舊表會讓 IINACT 收不到任何技能行。
+
+## 與上游的差異
+
+- 台服 opcode 表 `Machina.FFXIV/Headers/Opcodes/TraditionalChinese.txt` 由我方自行更新：從遊戲執行檔離線推導（封包分派表、解混淆分支與各處理函式），不靠側錄封包。
+- 其餘程式碼與上游相同。
+
+## 誰在用它
+
+- [IINACT](https://github.com/ffxiv-tc-port/IINACT)：子模組 `machina`。
+
+---
+
+以下為上游原始 README，內容未經修改：
+
+<!-- ffxiv-tc-port 繁體中文說明結束 -->
 # Machina
 
 Machina is a library that allows developers to read network data from the windows networking subsystem and reassemble it into usable information.

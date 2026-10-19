@@ -45,11 +45,16 @@ namespace Machina.FFXIV.Dalamud
                             OnMessageReceived(messageInfo.Item1, messageInfo.Item2);
                         }
 
-                        Task.Delay(10, token).Wait(token);
+                        // WaitOne 不配置記憶體（Task.Delay 每圈都配置）；取消時回 true，由外層迴圈條件結束。
+                        token.WaitHandle.WaitOne(10);
                     }
                     catch (OperationCanceledException)
                     {
 
+                    }
+                    catch (ObjectDisposedException) when (token.IsCancellationRequested)
+                    {
+                        // Disconnect 取消後隨即釋放 CancellationTokenSource，等待控制代碼也跟著關閉。
                     }
                     catch (Exception ex)
                     {
